@@ -3,7 +3,7 @@
 This is the Neovim config, it lives at `nvim/` and gets symlinked whole to
 `~/.config/nvim`. It's built for daily work in TypeScript, Python, C/C++,
 Rust, and C#, themed to match the rest of this repo, and kept deliberately
-small. Thirteen plugins, each doing one job nothing else on the list does.
+small. Twelve plugins, each doing one job nothing else on the list does.
 Nothing here turns Neovim into a terminal IDE with a dashboard and a
 session manager and a dozen half-used extras, the whole point of reaching
 for Neovim is that it stays fast.
@@ -130,7 +130,6 @@ Neovim window instead of crossing back out to tmux.
 | `lualine.nvim` | statusline |
 | `neo-tree.nvim` | file tree |
 | `gitsigns.nvim` | git gutter signs and hunk actions |
-| `nvim-autopairs` | auto-close brackets and quotes |
 | `vim-tmux-navigator` | crosses `<C-h/j/k/l>` from Neovim splits into tmux panes |
 
 ## Prerequisites
