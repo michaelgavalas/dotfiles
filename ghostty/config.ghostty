@@ -39,3 +39,11 @@ clipboard-write = allow
 # Seamless terminal pass-throughs for Neovim / Tmux modifier keys
 keybind = ctrl+shift+c=copy_to_clipboard
 keybind = ctrl+shift+v=paste_from_clipboard
+
+# ==============================================================================
+# SSH Integration
+# ==============================================================================
+# Auto-install the xterm-ghostty terminfo entry on remote hosts on first
+# connect (and cache which hosts already have it), avoiding manual
+# `infocmp -x | ssh host tic -x -` per host.
+shell-integration-features = ssh-terminfo
