@@ -13,6 +13,7 @@ and a new box is caught up in a couple minutes.
 | `zsh/` | zsh | shell config, plugins, aliases, see its own README |
 | `starship/` | starship | prompt config, paired with the zsh setup |
 | `yazi/` | yazi | terminal file manager, see its own README |
+| `nvim/` | Neovim | editor config, see its own README |
 
 ## Install
 
@@ -26,6 +27,7 @@ ln -sf ~/dotfiles/starship/starship.toml ~/.config/starship.toml
 ln -sf ~/dotfiles/yazi/yazi.toml ~/.config/yazi/yazi.toml
 ln -sf ~/dotfiles/yazi/theme.toml ~/.config/yazi/theme.toml
 ln -sf ~/dotfiles/yazi/package.toml ~/.config/yazi/package.toml
+ln -sf ~/dotfiles/nvim ~/.config/nvim
 ```
 
 tmux needs its plugin manager cloned once:
@@ -71,6 +73,15 @@ Prefix is `C-a`, panes move with `C-h/j/k/l` and stay aware of vim splits,
 copy mode uses vi keys and pushes straight to the system clipboard, and
 sessions autosave/restore across reboots. All of it, plus the reasoning
 behind each choice, is written up in `tmux/README.md`.
+
+## Neovim
+
+Themed Catppuccin Mocha to match everything else here, and built on
+`lazy.nvim`, the bare package manager, not the LazyVim distro. It covers
+TypeScript, Python, C/C++, Rust, and C# with a language server, completion,
+and formatting apiece, plus tree-sitter and fuzzy finding through
+`fzf-lua`. Eleven plugins total, kept that short on purpose. The full
+plugin rundown, keymaps, and prerequisites are in `nvim/README.md`.
 
 ## Adding something new
 
