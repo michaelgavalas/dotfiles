@@ -59,15 +59,17 @@ version of every plugin.
 ## The prompt
 
 Comes from starship, not zsh itself, so it's fast and looks the same
-whether you're in bash, zsh, or fish. It's the official Gruvbox Rainbow
-preset: a row of filled color blocks, left to right, an OS icon and
-username, the current directory, git branch and status when you're in a
-repo, the language runtime version for whatever project you're in (node,
-go, rust, python, and a few others), a docker/conda block if either is
-active, and the time on the far right. The arrow on the line below turns
-red after a command exits non-zero. All of it needs the Nerd Font
-mentioned above, without it the color blocks show up but the little icons
-inside them won't.
+whether you're in bash, zsh, or fish. It's the official Pure preset,
+modeled on the old pure.zsh theme: plain colored text, no boxes, no
+powerline separators, nothing that needs a special font. One line shows
+the directory in blue and, if you're in a repo, the git branch and a dot
+next to it when the working tree is dirty. A command that takes a while
+prints how long it took, in yellow, before the next prompt. The arrow on
+the line below is purple normally and turns red the moment a command
+exits non-zero, that's the fastest way to notice something failed without
+reading any output. Username and host stay hidden locally and only show
+up automatically over an SSH connection, which is useful precisely
+because it flags that you're not on your own machine.
 
 ## Fuzzy search and jumping around
 
