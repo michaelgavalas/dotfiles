@@ -1,3 +1,5 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
 format = """
 $username\
 $hostname\
@@ -10,37 +12,58 @@ $line_break\
 $python\
 $character"""
 
-[directory]
-style = "blue"
+palette = "catppuccin_mocha"
 
-[character]
-success_symbol = "[❯](purple)"
-error_symbol = "[❯](red)"
-vimcmd_symbol = "[❮](green)"
+[palettes.catppuccin_mocha]
+mauve = "#cba6f7"
+red = "#f38ba8"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+blue = "#89b4fa"
+overlay1 = "#7f849c"
+
+[directory]
+style = "bold blue"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[username]
+style_user = "bold overlay1"
+style_root = "bold red"
+format = "[$user]($style)@"
+show_always = false
+
+[hostname]
+ssh_only = true
+style = "bold overlay1"
+format = "[$hostname]($style) "
+trim_at = "."
+disabled = false
 
 [git_branch]
-format = "[$branch]($style)"
-style = "bright-black"
+format = "[$symbol$branch]($style) "
+symbol = " "
+style = "bold mauve"
 
 [git_status]
-format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
-style = "cyan"
-conflicted = "​"
-untracked = "​"
-modified = "​"
-staged = "​"
-renamed = "​"
-deleted = "​"
-stashed = "≡"
+style = "peach"
+format = '([$all_status$ahead_behind]($style)) '
 
 [git_state]
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
-style = "bright-black"
+style = "bold yellow"
 
 [cmd_duration]
 format = "[$duration]($style) "
 style = "yellow"
+min_time = 2000
 
 [python]
-format = "[$virtualenv]($style) "
-style = "bright-black"
+format = '[$virtualenv]($style) '
+style = "bold green"
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold green)"

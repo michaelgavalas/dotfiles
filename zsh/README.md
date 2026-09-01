@@ -59,17 +59,29 @@ version of every plugin.
 ## The prompt
 
 Comes from starship, not zsh itself, so it's fast and looks the same
-whether you're in bash, zsh, or fish. It's the official Pure preset,
-modeled on the old pure.zsh theme: plain colored text, no boxes, no
-powerline separators, nothing that needs a special font. One line shows
-the directory in blue and, if you're in a repo, the git branch and a dot
-next to it when the working tree is dirty. A command that takes a while
-prints how long it took, in yellow, before the next prompt. The arrow on
-the line below is purple normally and turns red the moment a command
-exits non-zero, that's the fastest way to notice something failed without
-reading any output. Username and host stay hidden locally and only show
-up automatically over an SSH connection, which is useful precisely
-because it flags that you're not on your own machine.
+whether you're in bash, zsh, or fish. Layout is plain text, no boxes, no
+powerline separators, nothing that needs a special font, colored with the
+Catppuccin Mocha palette so it matches the terminal background and the
+tmux status bar instead of clashing with them. The directory shows in
+blue, the git branch in mauve, a dirty working tree shows in peach next
+to it, and a command that takes a while prints how long it took in
+yellow. The arrow on the line below is green normally and turns red the
+moment a command exits non-zero, the fastest way to notice something
+failed without reading any output. Username and host stay hidden locally
+and only show up automatically over an SSH connection, which is useful
+precisely because it flags that you're not on your own machine.
+
+## Color theme
+
+Ghostty, tmux, and this prompt are all set to Catppuccin Mocha, a dark
+palette with soft, low-contrast colors built for staring at a screen for
+hours without it getting harsh. Ghostty uses its bundled `Catppuccin
+Mocha` theme directly, tmux pulls in the `catppuccin/tmux` plugin for its
+status bar, and the prompt above just references the same hex values by
+hand. If you ever want a lighter theme, Catppuccin also ships a `Latte`
+flavor, swap it in all three places (`ghostty/config.ghostty`'s `theme`
+line, `@catppuccin_flavor` in `tmux/.tmux.conf`, and the palette block in
+`starship/starship.toml`) to keep them in sync.
 
 ## Fuzzy search and jumping around
 

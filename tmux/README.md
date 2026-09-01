@@ -88,11 +88,15 @@ Two plugins handle this together: `tmux-resurrect` and `tmux-continuum`.
 Pane contents (scrollback) get captured too, so a restored pane shows what
 was on screen before, not just an empty shell.
 
-## Status bar
+## Status bar and theme
 
-Kept plain: session name on the left, current date and time on the right,
-window list in the middle with the active window bolded. Nothing fancy,
-nothing that needs a font patch.
+Colored with Catppuccin Mocha, the same palette as Ghostty and the zsh
+prompt, so tmux doesn't look like a different app bolted onto the
+terminal. The `catppuccin/tmux` plugin themes the window list and pane
+borders automatically, session name and the date/time sit on the right in
+lavender and teal blocks. Switch the flavor by changing
+`@catppuccin_flavor` (`latte`, `frappe`, `macchiato`, or `mocha`), just
+keep it matching whatever Ghostty and starship are set to.
 
 ## Plugins in use
 
@@ -103,6 +107,7 @@ nothing that needs a font patch.
 | `tmux-yank` | copy mode selections go to the system clipboard |
 | `tmux-resurrect` | manual save/restore of sessions |
 | `tmux-continuum` | automatic background save and restore on top of resurrect |
+| `catppuccin/tmux` | themes the status bar, window list, and pane borders |
 
 `prefix I` installs plugins, `prefix U` updates them, `prefix alt-u`
 removes ones no longer listed in the config.
