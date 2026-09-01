@@ -46,4 +46,15 @@ return {
       })
     end,
   },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "mason-org/mason.nvim" },
+    opts = {
+      -- clang-format is not listed here, its mason package needs pip,
+      -- which this system doesn't have. Install it via the system
+      -- package manager instead (see nvim/README.md).
+      ensure_installed = { "prettier", "csharpier" },
+      run_on_start = true,
+    },
+  },
 }

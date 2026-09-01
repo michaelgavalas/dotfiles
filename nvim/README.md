@@ -54,6 +54,13 @@ formatting through `conform.nvim`. Python additionally gets linted with
 built-in experience ever feels thin for Rust work, that's the first thing
 worth adding.
 
+`prettier` and `csharpier` install themselves through `mason-tool-installer`
+on first launch, same as the language servers. `clang-format` doesn't, its
+mason package needs `pip`, which this machine doesn't have, so it's a
+system prerequisite instead, see below. `ruff_format` reuses the `ruff`
+binary already installed for the LSP, and `rustfmt` comes from whatever
+Rust toolchain `rustup` set up, not from this config at all.
+
 ## Completion
 
 `blink.cmp` uses its `default` keymap preset, which binds both `<C-n>` /
@@ -125,7 +132,7 @@ Neovim window instead of crossing back out to tmux.
 | `nvim-treesitter` | parsing and highlighting |
 | `nvim-lspconfig` + `mason.nvim` + `mason-lspconfig.nvim` | language servers |
 | `blink.cmp` | completion |
-| `conform.nvim` + `nvim-lint` | formatting and linting |
+| `conform.nvim` + `nvim-lint` + `mason-tool-installer.nvim` | formatting and linting |
 | `fzf-lua` | fuzzy finding |
 | `lualine.nvim` | statusline |
 | `neo-tree.nvim` | file tree |
@@ -138,4 +145,7 @@ Neovim window instead of crossing back out to tmux.
 the C compiler is for building tree-sitter parsers and the other two are
 what `fzf-lua` shells out to. A Nerd Font is expected too, for the icons in
 `neo-tree` and `lualine`, Ghostty is already set to one elsewhere in this
-repo.
+repo. `clang-format` also needs to be on `PATH` for C/C++ formatting,
+install it through the system package manager (`sudo apt install
+clang-format` on Debian/Ubuntu), it isn't something this config installs
+for you.
