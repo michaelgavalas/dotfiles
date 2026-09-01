@@ -3,7 +3,7 @@
 This is the Neovim config, it lives at `nvim/` and gets symlinked whole to
 `~/.config/nvim`. It's built for daily work in TypeScript, Python, C/C++,
 Rust, and C#, themed to match the rest of this repo, and kept deliberately
-small. Eleven plugins, each doing one job nothing else on the list does.
+small. Twelve plugins, each doing one job nothing else on the list does.
 Nothing here turns Neovim into a terminal IDE with a dashboard and a
 session manager and a dozen half-used extras, the whole point of reaching
 for Neovim is that it stays fast.
@@ -53,6 +53,15 @@ formatting through `conform.nvim`. Python additionally gets linted with
 `rust_analyzer` is plain here, no `rustaceanvim` layered on top yet. If the
 built-in experience ever feels thin for Rust work, that's the first thing
 worth adding.
+
+## Completion
+
+`blink.cmp` uses its `default` keymap preset, which binds both `<C-n>` /
+`<C-p>` and the arrow keys to move through the suggestion list, so the
+vim-native muscle memory from built-in omni-completion still works, arrow
+keys are never required. `<C-space>` opens or closes the menu, `<Tab>` /
+`<S-Tab>` jump through snippet placeholders, and accepting a function
+completion auto-inserts the parens and drops the cursor inside them.
 
 ## Fuzzy finding
 
@@ -111,6 +120,7 @@ format when you want one mid-edit.
 | `lualine.nvim` | statusline |
 | `neo-tree.nvim` | file tree |
 | `gitsigns.nvim` | git gutter signs and hunk actions |
+| `nvim-autopairs` | auto-close brackets and quotes |
 
 ## Prerequisites
 
