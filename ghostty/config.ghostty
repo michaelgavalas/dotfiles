@@ -1,0 +1,41 @@
+# ==============================================================================
+# Font Configuration
+# ==============================================================================
+font-family = "JetBrains Mono"
+font-size = 12
+
+# Enable standard developer ligatures (e.g., !=, ==, ->, =>)
+font-feature = calt
+font-feature = liga
+
+# Custom line padding for improved visual scanning in dense code
+adjust-cell-height = 10%
+
+# ==============================================================================
+# Performance & Rendering Engine
+# ==============================================================================
+# Disable cursor animation/blinking to save rendering frames
+cursor-style = block
+cursor-style-blink = false
+
+# ==============================================================================
+# Window & Layout Settings
+# ==============================================================================
+# Native window decoration handling
+window-decoration = true
+window-padding-x = 12
+window-padding-y = 12
+
+# Confirm before closing windows running foreground processes (e.g., builds/gdb)
+confirm-close-surface = true
+
+# ==============================================================================
+# Keybindings & Clipboard
+# ==============================================================================
+# Enable system clipboard integration
+clipboard-read = allow
+clipboard-write = allow
+
+# Seamless terminal pass-throughs for Neovim / Tmux modifier keys
+keybind = ctrl+shift+c=copy_to_clipboard
+keybind = ctrl+shift+v=paste_from_clipboard
