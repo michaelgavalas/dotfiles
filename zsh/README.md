@@ -59,12 +59,15 @@ version of every plugin.
 ## The prompt
 
 Comes from starship, not zsh itself, so it's fast and looks the same
-whether you're in bash, zsh, or fish. It shows, left to right: the current
-directory (truncated to the last few segments, shortened further inside a
-git repo), the git branch and status if you're in one, and a colored arrow
-that turns red after a command exits non-zero. A command taking longer
-than 2 seconds gets a "took Xs" note. If you're in a project with node,
-go, rust, or python, the relevant runtime version shows up too.
+whether you're in bash, zsh, or fish. It's the official Gruvbox Rainbow
+preset: a row of filled color blocks, left to right, an OS icon and
+username, the current directory, git branch and status when you're in a
+repo, the language runtime version for whatever project you're in (node,
+go, rust, python, and a few others), a docker/conda block if either is
+active, and the time on the far right. The arrow on the line below turns
+red after a command exits non-zero. All of it needs the Nerd Font
+mentioned above, without it the color blocks show up but the little icons
+inside them won't.
 
 ## Fuzzy search and jumping around
 
