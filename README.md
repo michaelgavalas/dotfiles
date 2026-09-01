@@ -80,7 +80,7 @@ Themed Catppuccin Mocha to match everything else here, and built on
 `lazy.nvim`, the bare package manager, not the LazyVim distro. It covers
 TypeScript, Python, C/C++, Rust, and C# with a language server, completion,
 and formatting apiece, plus tree-sitter and fuzzy finding through
-`fzf-lua`. Twelve plugins total, kept that short on purpose. The full
+`fzf-lua`. Thirteen plugins total, kept that short on purpose. The full
 plugin rundown, keymaps, and prerequisites are in `nvim/README.md`.
 
 ## Adding something new

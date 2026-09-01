@@ -3,7 +3,7 @@
 This is the Neovim config, it lives at `nvim/` and gets symlinked whole to
 `~/.config/nvim`. It's built for daily work in TypeScript, Python, C/C++,
 Rust, and C#, themed to match the rest of this repo, and kept deliberately
-small. Twelve plugins, each doing one job nothing else on the list does.
+small. Thirteen plugins, each doing one job nothing else on the list does.
 Nothing here turns Neovim into a terminal IDE with a dashboard and a
 session manager and a dozen half-used extras, the whole point of reaching
 for Neovim is that it stays fast.
@@ -101,10 +101,20 @@ Leader is space.
 | `<leader>f` | format buffer |
 | `<leader>w` | save |
 | `<leader>q` | quit |
-| `<C-h/j/k/l>` | move between windows |
+| `<C-h/j/k/l>` | move between windows, crossing into tmux panes at the edge |
 
 Format-on-save is also on by default, `<leader>f` is there for a manual
 format when you want one mid-edit.
+
+## Tmux integration
+
+`tmux/.tmux.conf` already forwards `C-h/j/k/l` straight into whatever pane
+is running vim or Neovim instead of switching tmux panes with those keys,
+see its own README for that half. `vim-tmux-navigator` is the other half,
+it moves between splits the same way `<C-w>h/j/k/l` would, but falls
+through to an actual tmux pane switch once there's no more split to move
+into. Without it those keys would just hit a dead end at the edge of the
+Neovim window instead of crossing back out to tmux.
 
 ## Plugins in use
 
@@ -121,6 +131,7 @@ format when you want one mid-edit.
 | `neo-tree.nvim` | file tree |
 | `gitsigns.nvim` | git gutter signs and hunk actions |
 | `nvim-autopairs` | auto-close brackets and quotes |
+| `vim-tmux-navigator` | crosses `<C-h/j/k/l>` from Neovim splits into tmux panes |
 
 ## Prerequisites
 
