@@ -87,6 +87,8 @@ export PATH="$HOME/.opencode/bin:$PATH"
 
 alias dev='cd ~/dev'
 alias claude='claude --dangerously-skip-permissions'
+alias tn='tmux new -s'
+alias ta='tmux attach -t'
 alias fix-mounts="fusermount3 -u -z ~/develop/home ~/develop/projects 2>/dev/null; sudo systemctl restart remote-fs.target"
 
 # Reset terminal mouse tracking before every prompt
