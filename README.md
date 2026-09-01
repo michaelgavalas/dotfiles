@@ -10,6 +10,8 @@ and a new box is caught up in a couple minutes.
 |---|---|---|
 | `ghostty/` | Ghostty terminal | font, keybinds, ssh terminfo handling |
 | `tmux/` | tmux | full keybinding and plugin setup, see its own README |
+| `zsh/` | zsh | shell config, plugins, aliases, see its own README |
+| `starship/` | starship | prompt config, paired with the zsh setup |
 
 ## Install
 
@@ -18,23 +20,37 @@ git clone https://github.com/michaelgavalas/dotfiles.git ~/dotfiles
 
 ln -sf ~/dotfiles/ghostty/config.ghostty ~/.config/ghostty/config.ghostty
 ln -sf ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
+ln -sf ~/dotfiles/zsh/.zshrc ~/.zshrc
+ln -sf ~/dotfiles/starship/starship.toml ~/.config/starship.toml
 ```
 
-tmux also needs its plugin manager cloned once:
+tmux needs its plugin manager cloned once:
 
 ```
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
-Then start tmux and press `prefix + I` to pull the plugins down. Full
-details, including every keybinding, are in `tmux/README.md`.
+Then start tmux and press `prefix + I` to pull the plugins down. zsh's
+plugin manager, zinit, bootstraps itself the first time you open a new
+shell, no manual step needed there. zsh also expects a handful of tools
+on the system already, `zsh/README.md` has the install command and the
+full keybinding rundown. Once the config is in place, make zsh your login
+shell with:
+
+```
+chsh -s $(which zsh)
+```
 
 ## Ghostty
 
-Font is JetBrains Mono with ligatures on, cursor is a static block (no
-blink), and window padding is bumped up a bit for readability. Clipboard
-keybinds are `ctrl+shift+c` / `ctrl+shift+v` since Ghostty already uses
-plain `ctrl+c` for its usual job inside a shell.
+Font is JetBrainsMono Nerd Font Mono with ligatures on, cursor is a static
+block (no blink), and window padding is bumped up a bit for readability.
+It's the Nerd Font build rather than plain JetBrains Mono because the zsh
+prompt and file listings below use icon glyphs that only a patched font
+carries, install it with the nerd-fonts release for JetBrainsMono if a
+fresh machine doesn't have it yet. Clipboard keybinds are `ctrl+shift+c` /
+`ctrl+shift+v` since Ghostty already uses plain `ctrl+c` for its usual job
+inside a shell.
 
 The config also turns on `shell-integration-features = ssh-terminfo`,
 which installs Ghostty's terminfo entry on a remote host automatically the
