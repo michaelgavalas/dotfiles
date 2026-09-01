@@ -89,6 +89,15 @@ alias dev='cd ~/dev'
 alias claude='claude --dangerously-skip-permissions'
 alias tn='tmux new -s'
 alias ta='tmux attach -t'
+
+# yazi: cd the shell into whatever directory yazi was in when it quit
+function y() {
+	local tmp cwd; tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd" || builtin true
+	command rm -f -- "$tmp"
+}
 alias fix-mounts="fusermount3 -u -z ~/develop/home ~/develop/projects 2>/dev/null; sudo systemctl restart remote-fs.target"
 
 # Reset terminal mouse tracking before every prompt

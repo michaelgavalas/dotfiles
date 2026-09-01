@@ -12,6 +12,7 @@ and a new box is caught up in a couple minutes.
 | `tmux/` | tmux | full keybinding and plugin setup, see its own README |
 | `zsh/` | zsh | shell config, plugins, aliases, see its own README |
 | `starship/` | starship | prompt config, paired with the zsh setup |
+| `yazi/` | yazi | terminal file manager, see its own README |
 
 ## Install
 
@@ -22,6 +23,9 @@ ln -sf ~/dotfiles/ghostty/config.ghostty ~/.config/ghostty/config.ghostty
 ln -sf ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
 ln -sf ~/dotfiles/zsh/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/starship/starship.toml ~/.config/starship.toml
+ln -sf ~/dotfiles/yazi/yazi.toml ~/.config/yazi/yazi.toml
+ln -sf ~/dotfiles/yazi/theme.toml ~/.config/yazi/theme.toml
+ln -sf ~/dotfiles/yazi/package.toml ~/.config/yazi/package.toml
 ```
 
 tmux needs its plugin manager cloned once:
@@ -34,8 +38,9 @@ Then start tmux and press `prefix + I` to pull the plugins down. zsh's
 plugin manager, zinit, bootstraps itself the first time you open a new
 shell, no manual step needed there. zsh also expects a handful of tools
 on the system already, `zsh/README.md` has the install command and the
-full keybinding rundown. Once the config is in place, make zsh your login
-shell with:
+full keybinding rundown. yazi isn't packaged for this distro and needs a
+binary download plus a theme package fetch, see `yazi/README.md` for
+that. Once the config is in place, make zsh your login shell with:
 
 ```
 chsh -s $(which zsh)
