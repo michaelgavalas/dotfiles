@@ -158,12 +158,18 @@ require("config.autocmds")
 require("config.lazy")
 ```
 
-- [ ] **Step 6: Verify the config loads with no plugins yet and no errors**
+- [ ] **Step 6: Symlink this config into place**
 
-Run: `nvim --headless -u nvim/init.lua -c "qa" 2>&1; echo "exit: $?"`
+`require("config.options")` and friends only resolve if `nvim/lua/` is on Neovim's runtimepath, which only happens automatically when `nvim/` *is* `~/.config/nvim` (Neovim adds `stdpath('config')` to the runtimepath at startup; passing `-u nvim/init.lua` from an arbitrary directory does not). Since Task 1 confirmed `~/.config/nvim` does not already exist, symlink the real target now and use plain `nvim` (no `-u` flag) for every verification command in this plan from here on:
+
+Run: `ln -sf ~/dotfiles/nvim ~/.config/nvim`
+
+- [ ] **Step 7: Verify the config loads with no plugins yet and no errors**
+
+Run: `nvim --headless -c "qa" 2>&1; echo "exit: $?"`
 Expected: lazy.nvim clones itself (one-time network fetch), no Lua tracebacks printed, `exit: 0`.
 
-- [ ] **Step 7: Commit**
+- [ ] **Step 8: Commit**
 
 ```bash
 git add nvim/init.lua nvim/lua
@@ -208,8 +214,8 @@ return {
 
 Run:
 ```bash
-nvim --headless -u nvim/init.lua "+Lazy! sync" -c "qa" 2>&1
-nvim --headless -u nvim/init.lua -c "lua io.write(vim.g.colors_name or 'NONE')" -c "qa" 2>&1
+nvim --headless "+Lazy! sync" -c "qa" 2>&1
+nvim --headless -c "lua io.write(vim.g.colors_name or 'NONE')" -c "qa" 2>&1
 ```
 Expected: first command installs `catppuccin/nvim` with no errors; second command prints `catppuccin`.
 
@@ -266,12 +272,12 @@ return {
 
 Run:
 ```bash
-nvim --headless -u nvim/init.lua "+Lazy! sync" -c "qa" 2>&1
-nvim --headless -u nvim/init.lua -c "TSInstallSync! typescript tsx python c cpp rust c_sharp lua bash markdown markdown_inline vim vimdoc query" -c "qa" 2>&1
+nvim --headless "+Lazy! sync" -c "qa" 2>&1
+nvim --headless -c "TSInstallSync! typescript tsx python c cpp rust c_sharp lua bash markdown markdown_inline vim vimdoc query" -c "qa" 2>&1
 
 mkdir -p /tmp/nvim-config-check
 printf 'fn main() {\n    println!("hi");\n}\n' > /tmp/nvim-config-check/sample.rs
-nvim --headless -u nvim/init.lua /tmp/nvim-config-check/sample.rs \
+nvim --headless /tmp/nvim-config-check/sample.rs \
   -c "lua print('highlighter active: ' .. tostring(vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] ~= nil))" \
   -c "qa" 2>&1
 ```
@@ -324,8 +330,8 @@ return {
 
 Run:
 ```bash
-nvim --headless -u nvim/init.lua "+Lazy! sync" -c "qa" 2>&1
-nvim --headless -u nvim/init.lua -c "lua print('capabilities: ' .. tostring(require('blink.cmp').get_lsp_capabilities() ~= nil))" -c "qa" 2>&1
+nvim --headless "+Lazy! sync" -c "qa" 2>&1
+nvim --headless -c "lua print('capabilities: ' .. tostring(require('blink.cmp').get_lsp_capabilities() ~= nil))" -c "qa" 2>&1
 ```
 Expected: install completes with no errors; second command prints `capabilities: true`.
 
@@ -400,9 +406,9 @@ return {
 
 Run:
 ```bash
-nvim --headless -u nvim/init.lua "+Lazy! sync" -c "qa" 2>&1
-nvim --headless -u nvim/init.lua -c "MasonInstall vtsls pyright ruff clangd rust-analyzer omnisharp" -c "qa" 2>&1
-nvim --headless -u nvim/init.lua -c "lua print(vim.inspect(require('mason-registry').get_installed_package_names()))" -c "qa" 2>&1
+nvim --headless "+Lazy! sync" -c "qa" 2>&1
+nvim --headless -c "MasonInstall vtsls pyright ruff clangd rust-analyzer omnisharp" -c "qa" 2>&1
+nvim --headless -c "lua print(vim.inspect(require('mason-registry').get_installed_package_names()))" -c "qa" 2>&1
 ```
 Expected: the install command completes (may take a few minutes, omnisharp and clangd are large downloads), and the final command's output list includes `vtsls`, `pyright`, `ruff`, `clangd`, `rust-analyzer`, and `omnisharp`.
 
@@ -410,7 +416,7 @@ Expected: the install command completes (may take a few minutes, omnisharp and c
 
 ```bash
 printf 'fn main() {}\n' > /tmp/nvim-config-check/sample.rs
-nvim --headless -u nvim/init.lua /tmp/nvim-config-check/sample.rs \
+nvim --headless /tmp/nvim-config-check/sample.rs \
   -c "sleep 3" \
   -c "lua local n={} for _,c in ipairs(vim.lsp.get_clients({bufnr=0})) do table.insert(n,c.name) end print('clients: '..table.concat(n,','))" \
   -c "qa" 2>&1
@@ -499,9 +505,9 @@ return {
 
 Run:
 ```bash
-nvim --headless -u nvim/init.lua "+Lazy! sync" -c "qa" 2>&1
-nvim --headless -u nvim/init.lua -c "lua print(vim.inspect(require('conform').list_all_formatters and 'loaded' or 'MISSING'))" -c "qa" 2>&1
-nvim --headless -u nvim/init.lua -c "lua print('lint loaded: ' .. tostring(require('lint') ~= nil))" -c "qa" 2>&1
+nvim --headless "+Lazy! sync" -c "qa" 2>&1
+nvim --headless -c "lua print(vim.inspect(require('conform').list_all_formatters and 'loaded' or 'MISSING'))" -c "qa" 2>&1
+nvim --headless -c "lua print('lint loaded: ' .. tostring(require('lint') ~= nil))" -c "qa" 2>&1
 ```
 Expected: no errors; second command prints `loaded`; third prints `lint loaded: true`.
 
@@ -551,8 +557,8 @@ return {
 
 Run:
 ```bash
-nvim --headless -u nvim/init.lua "+Lazy! sync" -c "qa" 2>&1
-nvim --headless -u nvim/init.lua -c "lua print('fzf-lua loaded: ' .. tostring(pcall(require, 'fzf-lua')))" -c "qa" 2>&1
+nvim --headless "+Lazy! sync" -c "qa" 2>&1
+nvim --headless -c "lua print('fzf-lua loaded: ' .. tostring(pcall(require, 'fzf-lua')))" -c "qa" 2>&1
 ```
 Expected: no errors; prints `fzf-lua loaded: true`.
 
@@ -621,8 +627,8 @@ return {
 
 Run:
 ```bash
-nvim --headless -u nvim/init.lua "+Lazy! sync" -c "qa" 2>&1
-nvim --headless -u nvim/init.lua -c "lua print('lualine: '..tostring(pcall(require,'lualine'))..' neo-tree: '..tostring(pcall(require,'neo-tree'))..' gitsigns: '..tostring(pcall(require,'gitsigns')))" -c "qa" 2>&1
+nvim --headless "+Lazy! sync" -c "qa" 2>&1
+nvim --headless -c "lua print('lualine: '..tostring(pcall(require,'lualine'))..' neo-tree: '..tostring(pcall(require,'neo-tree'))..' gitsigns: '..tostring(pcall(require,'gitsigns')))" -c "qa" 2>&1
 ```
 Expected: no errors; prints `lualine: true neo-tree: true gitsigns: true`.
 
@@ -742,7 +748,7 @@ EOF
 
 - [ ] **Step 1: Confirm a clean full install with no errors**
 
-Run: `rm -rf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim && nvim --headless -u nvim/init.lua "+Lazy! sync" -c "qa" 2>&1`
+Run: `rm -rf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim && nvim --headless "+Lazy! sync" -c "qa" 2>&1`
 Expected: every plugin installs from scratch with no error output. (This intentionally wipes any previous test state so the check reflects what a fresh machine would see.)
 
 - [ ] **Step 2: Create one scratch file per target language**
@@ -761,7 +767,7 @@ printf 'class Program {\n    static void Main() { System.Console.WriteLine("hi")
 
 Run, for each `(file, expected_client)` pair `(sample.ts, vtsls)`, `(sample.py, pyright)`, `(sample.c, clangd)`, `(sample.cpp, clangd)`, `(sample.rs, rust_analyzer)`, `(sample.cs, omnisharp)`:
 ```bash
-nvim --headless -u nvim/init.lua /tmp/nvim-config-check/<file> \
+nvim --headless /tmp/nvim-config-check/<file> \
   -c "sleep 3" \
   -c "lua local n={} for _,c in ipairs(vim.lsp.get_clients({bufnr=0})) do table.insert(n,c.name) end print('<file> clients: '..table.concat(n,','))" \
   -c "qa" 2>&1
@@ -772,7 +778,7 @@ Expected: each line's client list includes the expected client name. (`omnisharp
 
 Run, for each file:
 ```bash
-nvim --headless -u nvim/init.lua /tmp/nvim-config-check/<file> \
+nvim --headless /tmp/nvim-config-check/<file> \
   -c "lua print('<file> highlighter: ' .. tostring(vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] ~= nil))" \
   -c "qa" 2>&1
 ```
@@ -781,18 +787,18 @@ Expected: every file prints `highlighter: true`.
 - [ ] **Step 5: Confirm format-on-save runs without error**
 
 ```bash
-nvim --headless -u nvim/init.lua /tmp/nvim-config-check/sample.py -c "write" -c "qa" 2>&1
+nvim --headless /tmp/nvim-config-check/sample.py -c "write" -c "qa" 2>&1
 ```
 Expected: no error output (confirms conform.nvim's `format_on_save` autocmd path executes cleanly; ruff must be installed via mason from Task 6 for this to have an effect, but the check here is just "no crash").
 
 - [ ] **Step 6: Check startup time**
 
-Run: `nvim --headless -u nvim/init.lua --startuptime /tmp/nvim-config-check/startuptime.log -c "qa" && tail -1 /tmp/nvim-config-check/startuptime.log`
+Run: `nvim --headless --startuptime /tmp/nvim-config-check/startuptime.log -c "qa" && tail -1 /tmp/nvim-config-check/startuptime.log`
 Expected: total startup time well under 100ms (excluding the one-time plugin install cost already paid in Step 1). This is the direct check against the "don't be sluggish" goal from the spec. If it's high, look at which plugin's `event`/`cmd`/`ft` lazy-loading trigger is missing or too eager, and fix it before considering this task done.
 
 - [ ] **Step 7: Interactive spot-check (manual, not headless)**
 
-Launch `nvim -u nvim/init.lua /tmp/nvim-config-check/sample.rs` interactively and confirm by hand: completion popup appears while typing, `<leader>e` opens neo-tree, `<leader>ff` opens fzf-lua file picker, `K` shows hover info, colorscheme looks like Catppuccin Mocha, lualine renders at the bottom.
+Launch `nvim /tmp/nvim-config-check/sample.rs` interactively and confirm by hand: completion popup appears while typing, `<leader>e` opens neo-tree, `<leader>ff` opens fzf-lua file picker, `K` shows hover info, colorscheme looks like Catppuccin Mocha, lualine renders at the bottom.
 
 - [ ] **Step 8: Clean up scratch files**
 
