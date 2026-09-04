@@ -19,34 +19,21 @@ and a new box is caught up in a couple minutes.
 
 ```
 git clone https://github.com/michaelgavalas/dotfiles.git ~/dotfiles
-
-ln -sf ~/dotfiles/ghostty/config.ghostty ~/.config/ghostty/config.ghostty
-ln -sf ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
-ln -sf ~/dotfiles/zsh/.zshrc ~/.zshrc
-ln -sf ~/dotfiles/starship/starship.toml ~/.config/starship.toml
-ln -sf ~/dotfiles/yazi/yazi.toml ~/.config/yazi/yazi.toml
-ln -sf ~/dotfiles/yazi/theme.toml ~/.config/yazi/theme.toml
-ln -sf ~/dotfiles/yazi/package.toml ~/.config/yazi/package.toml
-ln -sf ~/dotfiles/nvim ~/.config/nvim
+~/dotfiles/bootstrap.sh
 ```
 
-tmux needs its plugin manager cloned once:
-
-```
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-```
-
-Then start tmux and press `prefix + I` to pull the plugins down. zsh's
-plugin manager, zinit, bootstraps itself the first time you open a new
-shell, no manual step needed there. zsh also expects a handful of tools
-on the system already, `zsh/README.md` has the install command and the
-full keybinding rundown. yazi isn't packaged for this distro and needs a
-binary download plus a theme package fetch, see `yazi/README.md` for
-that. Once the config is in place, make zsh your login shell with:
-
-```
-chsh -s $(which zsh)
-```
+This symlinks every config into place (backing up anything already
+sitting at those paths to a `.bak` suffix), clones tmux's plugin manager
+(tpm) if it isn't there yet, and sets zsh as your login shell. It's safe
+to re-run any time. Pass flags to set up only some of it, e.g.
+`./bootstrap.sh --nvim --tmux`, or run `./bootstrap.sh --help` for the
+full list. Start tmux and press `prefix + I` to pull the tmux
+plugins down. zsh's plugin manager, zinit, bootstraps itself the first
+time you open a new shell, no manual step needed there. zsh also expects
+a handful of tools on the system already, `zsh/README.md` has the
+install command and the full keybinding rundown. yazi isn't packaged for
+this distro and needs a binary download plus a theme package fetch, see
+`yazi/README.md` for that.
 
 ## Ghostty
 
@@ -85,6 +72,6 @@ plugin rundown, keymaps, and prerequisites are in `nvim/README.md`.
 
 ## Adding something new
 
-Give the tool its own directory, drop the config file in, symlink it into
-place from your home directory the same way the two above are done, and
-add a row to the table at the top of this file.
+Give the tool its own directory, drop the config file in, add a `link`
+call for it in `bootstrap.sh` the same way the others are done, and add
+a row to the table at the top of this file.
